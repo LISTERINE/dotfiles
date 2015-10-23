@@ -1,7 +1,12 @@
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Projects
+source /usr/local/bin/virtualenvwrapper.sh
+
+
 PROMPT_COMMAND='prompt'
 
-function precmd() { 
-    eval "$PROMPT_COMMAND" 
+function precmd() {
+    eval "$PROMPT_COMMAND"
 }
 
 function prompt()
