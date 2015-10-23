@@ -21,7 +21,8 @@ function prompt()
         for ((comp_idx=${#PWD_COMPONENTS[@]}-1; comp_idx>0; comp_idx--)) ; do
             component="${PWD_COMPONENTS[$comp_idx]}"
             # If we activate a venv, stop traverseing up so we only activate the most local venv
-            if [ -a $WORKON_HOME/$component ]; then
+            # If the current env is already active, don't source it
+            if [[ -a $WORKON_HOME/$component ]] && [[ $PS1 != *"$component"* ]]; then
                 workon $component
                 break
             fi
