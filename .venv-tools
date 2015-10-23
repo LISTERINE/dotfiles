@@ -1,0 +1,25 @@
+PROMPT_COMMAND='prompt'
+
+function precmd() { 
+    eval "$PROMPT_COMMAND" 
+}
+
+function prompt()
+{
+    if [ "$PWD" != "$MYOLDPWD" ]
+        # If we're entering a new dir
+        then
+        MYOLDPWD="$PWD"
+        IFS='/' read -ra PWD_COMPONENTS <<< "$PWD"
+        # Loop over path components in reverse so we check the local dir first and traverse back toward /
+        # This way we can be in a venv in a venv and select the one most specific to our location
+        for ((comp_idx=${#PWD_COMPONENTS[@]}-1; comp_idx>0; comp_idx--)) ; do
+            component="${PWD_COMPONENTS[$comp_idx]}"
+            # If we activate a venv, stop traverseing up so we only activate the most local venv
+            if [ -a $WORKON_HOME/$component ]; then
+                workon $component
+                break
+            fi
+        done
+    fi
+}

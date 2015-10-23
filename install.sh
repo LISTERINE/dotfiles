@@ -31,7 +31,7 @@ fi
 
 dir=~/.dotfiles        # dotfiles directory
 olddir=~/.dotfiles_old # old dotfiles backup directory
-files="$extra_files bashrc vim vimrc bash_aliases tmux.conf docker-tools.sh" # list of files/folders to symlink in homedir
+files="$extra_files bashrc vim vimrc bash_aliases bash_prompt tmux.conf docker-tools.sh venv-tools" # list of files/folders to symlink in homedir
 
 ##########
 

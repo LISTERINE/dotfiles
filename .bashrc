@@ -84,3 +84,6 @@ fi
 if [ -f $HOME/.docker-tools.sh ]; then
     source $HOME/.docker-tools.sh
 fi
+if [ -f $HOME/.venv-tools.sh ]; then
+    source $HOME/.venv-tools.sh
+fi
