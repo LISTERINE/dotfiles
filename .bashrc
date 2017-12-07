@@ -56,7 +56,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
 	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-	alias ls='ls --color=auto'
+	#alias ls='ls --color=auto'
 	alias dir='dir --color=auto'
 	alias vdir='vdir --color=auto'
 
@@ -71,6 +71,10 @@ if [ -f /etc/bash/completion.d ]; then
 	done
 fi
 
+# Init docker machine env
+export DOCKER_HOST=tcp://127.0.0.1:2376;
+eval $(docker-machine env --no-proxy default)
+
 # Load the shell dotfiles, and then some:
 if [ -f $HOME/.bash_aliases ]; then
     source $HOME/.bash_aliases
@@ -78,12 +82,21 @@ fi
 if [ -f $HOME/.bash_prompt ]; then
 	source $HOME/.bash_prompt
 fi
-if [[ -f $HOME/.bash_profile ]]; then
-	source $HOME/.bash_profile
-fi
 if [ -f $HOME/.docker-tools.sh ]; then
     source $HOME/.docker-tools.sh
 fi
 if [ -f $HOME/.venv-tools ]; then
     source $HOME/.venv-tools
+fi
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  source $(brew --prefix)/etc/bash_completion
+fi
+
+if [[ $PATH != *"/Users/jon/Library/Python/3.6/bin/"* ]]; then
+	PATH=$PATH:/Users/jon/Library/Python/3.6/bin/
+	export PATH
+fi
+if [ "$(launchctl getenv PATH)" != "$PATH" ]; then
+	launchctl setenv PATH $PATH
+	killall Dock
 fi

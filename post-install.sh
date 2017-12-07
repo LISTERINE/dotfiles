@@ -1,6 +1,4 @@
-#!/bin/bash
-
-if [ -a ./res/post.sh ]
+if [ -a ./res/pip.sh ]
     then
-    source ./res/post.sh
+    source ./res/pip.sh
 fi

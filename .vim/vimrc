@@ -17,15 +17,6 @@ if !filereadable(neobundle_readme)
   silent !mkdir -p ~/.vim/bundle
   silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim/
   let g:not_finsh_neobundle = "yes"
-
-  " Run shell script if exist on custom select language
-  
-  silent !\curl -sSL https://raw.githubusercontent.com/avelino/vim-bootstrap/master/vim_template/langs/python/python.sh | bash -s stable
-  
-  silent !\curl -sSL https://raw.githubusercontent.com/avelino/vim-bootstrap/master/vim_template/langs/javascript/javascript.sh | bash -s stable
-  
-  silent !\curl -sSL https://raw.githubusercontent.com/avelino/vim-bootstrap/master/vim_template/langs/html/html.sh | bash -s stable
-  
 endif
 
 " Required:
@@ -47,7 +38,7 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'sheerun/vim-polyglot'
 NeoBundle 'vim-scripts/grep.vim'
 NeoBundle 'vim-scripts/CSApprox'
-NeoBundle 'bronson/vim-trailing-whitespace'
+NeoBundle 'ntpeters/vim-better-whitespace'
 if v:version > 702
 	NeoBundle 'Shougo/vimproc.vim', {
 		  \ 'build' : {
@@ -79,7 +70,6 @@ let g:vim_bootstrap_editor = "vim"				" nvim or vim
 NeoBundle "davidhalter/jedi-vim"
 NeoBundle "scrooloose/syntastic"
 NeoBundle "majutsushi/tagbar"
-NeoBundle "Yggdroot/indentLine"
 
 
 "" Javascript Bundle
@@ -93,7 +83,8 @@ NeoBundle 'gorodinskiy/vim-coloresque'
 NeoBundle 'tpope/vim-haml'
 NeoBundle 'mattn/emmet-vim'
 
-
+"" user bundles
+NeoBundle 'wkentaro/conque.vim'
 
 "" Include user's extra bundle
 if filereadable(expand("~/.vimrc.local.bundles"))
@@ -313,6 +304,8 @@ set autoread
 "" Split
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
+cnoremap cts :<C-u>ConqueTermSplit /bin/bash<CR>
+cnoremap ctv :<C-u>ConqueTermVSplit /bin/bash<CR>
 
 "" Git
 noremap <Leader>ga :Gwrite<CR>
@@ -373,7 +366,7 @@ if has('unnamedplus')
 endif
 
 noremap YY "+y<CR>
-noremap P "+gP<CR>
+"noremap P "+gP<CR>
 noremap XX "+x<CR>
 
 if has('macunix')
@@ -400,6 +393,9 @@ vmap > >gv
 
 "" Open current line on GitHub
 noremap ,o :!echo `git url`/blob/`git rev-parse --abbrev-ref HEAD`/%\#L<C-R>=line('.')<CR> \| xargs open<CR><CR>
+
+"" pdb set_trace
+nnoremap <leader>p Oimport pdb; pdb.set_trace()<Esc>
 
 "" Custom configs
 
